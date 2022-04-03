@@ -14,17 +14,21 @@
             <th>Atualizado Em</th>
             <th>Local</th>
             <th>Status</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          <tr>-->
-            <td>
-              <a href="{% url 'detalhes' %}">1</a>
-            </td>
+          <tr>
+            <td>1</td>
             <td>Nobreak não liga</td>
             <td>20/03/2022</td>
             <td>Unidade I</td>
             <td>Pendente</td>
+            <td>
+              <span class="material-icons">
+                  <a href="{% url 'detalhes' %}">edit</a>
+                </span>
+            </td>
           </tr>
           <tr>
             <td>2</td>
@@ -32,6 +36,11 @@
             <td>15/03/2022</td>
             <td>Unidade III</td>
             <td>Em adamento</td>
+            <td>
+              <span class="material-icons">
+                  <a href="{% url 'detalhes' %}">edit</a>
+                </span>
+            </td>
           </tr>
           <tr>
             <td>3</td>
@@ -39,6 +48,11 @@
             <td>10/02/2022</td>
             <td>Sede ADM</td>
             <td>Resolvido</td>
+            <td>
+              <span class="material-icons">
+                  <a href="{% url 'detalhes' %}">edit</a>
+                </span>
+            </td>
           </tr>
         </tbody>
       </table>
