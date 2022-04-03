@@ -1,9 +1,10 @@
-from unicodedata import name
+
 from django.urls import path
 
 
-from . import views
+from .views import index, detalhes
 
 urlpatterns = [
-    path('', views.index, name='index.html'),
-]
+    path('', index, name='index'),
+    path('detalhes/', detalhes, name='detalhes'),
+    ]

@@ -1,12 +1,50 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Breno - Com HTML</title>
-</head>
-<body>
-    <h1>Breno - Deu cecrto</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block contend %}
+    <h1 class="mt-5">Lista de Serviços</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Título</th>
+            <th>Atualizado Em</th>
+            <th>Local</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- <td>
+              <a href="#"> João</a>
+            </td> -->
+            <td>
+              <a href="{% url 'detalhes' %}">1</a>
+            </td>
+            <td>Nobreak não liga</td>
+            <td>20/03/2022</td>
+            <td>Unidade I</td>
+            <td>Pendente</td>
+          </tr>
+          <tr>
+            <!-- <td>
+              <a href="#"> Leandro</a>
+            </td> -->
+            <td>2</td>
+            <td>Nobreak SMS desliga sozinho</td>
+            <td>15/03/2022</td>
+            <td>Unidade III</td>
+            <td>Em adamento</td>
+          </tr>
+          <tr>
+            <!-- <td>
+              <a href="#"> Fátima</a>
+            </td> -->
+            <td>3</td>
+            <td>Nobreak APC não liga</td>
+            <td>10/02/2022</td>
+            <td>Sede ADM</td>
+            <td>Resolvido</td>
+          </tr>
+        </tbody>
+      </table>
+{% endblock %}
