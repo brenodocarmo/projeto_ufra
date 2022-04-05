@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'servicos', # Nome do APP
+    'fontawesomefree',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
