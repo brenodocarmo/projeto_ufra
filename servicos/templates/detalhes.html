@@ -6,29 +6,29 @@
 
 {% block contend %}
 
-  <h1 class="mt-5">Nobreak não liga</h1>
+  <h1 class="mt-5">{{registro.titulo}}</h1>
     <dl>
       <dt>Código</dt>
-      <dd>1</dd>
+      <dd>{{registro.id}}</dd>
 
       <dt>Data de Abertura</dt>
-      <dd>2020-10-03</dd>
+      <dd>{{registro.criado_em}}</dd>
 
-      <dt>Local</dt>
-      <dd>Unidade I</dd>
+      <!-- <dt>Local</dt>
+      <dd>{{unidade.nome}}</dd> -->
 
       <dt>Departamento</dt>
-      <dd>Adm. Armazém</dd>
+      <dd>{{registro.departamento_id}}</dd>
 
       <dt>Patrimônio</dt>
-      <dd>0100063</dd>
+      <dd>{{registro.patrimonio}}</dd>
 
       <dt>Status</dt>
-      <dd>Pendente</dd>
+      <dd>{{registro.status}}</dd>
 
       <dt>Descrição</dt>
       <dd>
-        xxxxxx-xxxxxx-xxxxx-xxxxx-xxxxxxx-xxxxxx-xxxxxx-xxxxxx
+        {{registro.descricao}}
       </dd>
     </dl>
 {% endblock %}
