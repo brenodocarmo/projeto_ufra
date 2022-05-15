@@ -1,6 +1,7 @@
 # Pacotes
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from urllib3 import HTTPResponse
 from .models import Registro, Unidade
 from .forms import UnidadeForm, DepartamentoForm, RegistroForm
 from django.contrib import messages
@@ -9,13 +10,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
     
 def dashboard(request):
+    '''
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
+    '''
     registros = Registro.objects.all()
     dados = {
         'registros': registros
     }
     return render(request,'dashboard.html', dados)
+
 
 
 def detalhes(request, registro_id):
