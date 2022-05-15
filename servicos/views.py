@@ -1,13 +1,24 @@
 # Pacotes
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from urllib3 import HTTPResponse
-from .models import Registro, Unidade
+from django.utils import timezone
+from .models import Registro
 from .forms import UnidadeForm, DepartamentoForm, RegistroForm
 from django.contrib import messages
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.detail import DetailView
 
+
+
+class ArticleDetailView(DetailView):
+
+    model = Registro
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
     
 def dashboard(request):
     

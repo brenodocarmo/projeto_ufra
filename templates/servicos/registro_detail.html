@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}Detalhes{% endblock %}
+
+{% block titulo_nav %}Inicio{% endblock %}
+
+
+
+{% block contend %}
+
+  <h1 class="mt-5">{{registro.titulo}}</h1>
+    <dl>
+      <dt>Código</dt>
+      <dd>{{object.id}}</dd>
+
+      <dt>Data de Abertura</dt>
+      <dd>{{object.criado_em}}</dd>
+
+      <!-- <dt>Local</dt>
+      <dd>{{unidade.nome}}</dd> -->
+
+      <dt>Departamento</dt>
+      <dd>{{object.departamento_id}}</dd>
+
+      <dt>Patrimônio</dt>
+      <dd>{{object.patrimonio}}</dd>
+
+      <dt>Status</dt>
+      <dd>{{object.status}}</dd>
+
+      <dt>Descrição</dt>
+      <dd>
+        {{object.descricao}}
+      </dd>
+    </dl>
+    
+    
+    <a class="btn btn-primary" href="{% url 'editar' object.id %}" style="background-color: rgb(28, 52, 231);">Editar</a>
+    
+
+
+
+{% endblock %}

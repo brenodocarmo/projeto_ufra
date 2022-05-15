@@ -6,6 +6,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('<int:pk>/', views.ArticleDetailView.as_view(), name='article-detail'),
     path('',views.dashboard, name='dashboard'),
     path('detalhes/<int:registro_id>', views.detalhes, name='detalhes'),
     path('unidade/', views.formUnidade, name='formUnidade'),
