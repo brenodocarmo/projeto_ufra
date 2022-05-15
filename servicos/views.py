@@ -89,11 +89,12 @@ def formDepartamento(request):
 
 
 class AtualizarRegistro(LoginRequiredMixin,UpdateView):
-    login_url: reverse_lazy('account_login')
+    
     model = Registro
     fields = "__all__"
     template_name = "registro.html"
     success_url = reverse_lazy('dashboard')
-
+    login_url: reverse_lazy('account_login')
+# ggg
 
 # Fim views
