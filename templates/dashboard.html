@@ -39,9 +39,9 @@
               <td>{{registro.status}}</td>
               <td>
                 
-                <a href="{% url 'detalhes' registro.id %}" class="btn btn-warning btn-sm" title="Visualizar">
-                <!-- <a href="detalhes/{{registro.id}}" class="btn btn-warning btn-sm" title="Editar"> -->
-                  <i class="fa-solid fa-pen-to-square" alt="Editar"></i>          
+                <a href="{% url 'detalhes' registro.id %}" title="Visualizar">
+                
+                  <img src="https://cdn-icons-png.flaticon.com/512/4696/4696792.png" alt="Editar" width="20" height="20">     
               </td>
             </tr>
           {% endfor %}
