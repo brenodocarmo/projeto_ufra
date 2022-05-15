@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
-
+{% load account %}
 {% block titulo %}Controle de Serviço{% endblock %}
 
 {% block titulo_nav %}Controle de Serviço{% endblock %}
 
 {% block contend %}
-    <h1 class="mt-5">Lista de Serviços</h1>
+<div class="container mt-5" style="width: 100%;">
+  <div class="d-flex justify-content-between mb-11">
+    <div>
+      <h2 class="fw-bold" style="color: rgb(19, 20, 19);">Fila de demanda</h2>
+    </div>
+    <div>
+      <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" href="{% url 'formRegistro' %}" style="background-color: rgb(28, 52, 231);">Novo Chamado</a>
+    </div>
+  </div>
+  <div class="table-responsive">
+
+  </div>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -27,7 +38,7 @@
               <td>{{registro.departamento_id}}</td>
               <td>{{registro.status}}</td>
               <td>
-                <a href="{% url 'detalhes' registro.id %}" class="btn btn-warning btn-sm" title="Editar">
+                <a href="{% url 'detalhes' registro.id %}" class="btn btn-warning btn-sm" title="Visualizar">
                 <!-- <a href="detalhes/{{registro.id}}" class="btn btn-warning btn-sm" title="Editar"> -->
                   <i class="fa-solid fa-pen-to-square"></i>          
               </td>

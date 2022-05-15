@@ -2,7 +2,8 @@
 
 {% block titulo %}Detalhes{% endblock %}
 
-{% block titulo_nav %}Detalhes do Registro{% endblock %}
+{% block titulo_nav %}Inicio{% endblock %}
+
 
 {% block contend %}
 
@@ -31,4 +32,11 @@
         {{registro.descricao}}
       </dd>
     </dl>
+    
+    
+    <a class="btn btn-primary" href="{% url 'editar' registro.id %}" style="background-color: rgb(28, 52, 231);">Editar</a>
+    
+
+
+
 {% endblock %}

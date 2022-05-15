@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 
 class Unidade(models.Model):
@@ -25,8 +26,8 @@ class Registro(models.Model):
     )
 
     titulo = models.CharField(max_length=100)
-    descricao = models.TextField(blank=True, null=True)
-    criado_em = models.DateField()
+    descricao = models.TextField(blank=True, null=True, max_length=200)
+    criado_em = models.DateField(default = date.today)
     departamento_id = models.ForeignKey(Departamento, on_delete=models.CASCADE)
     status = models.CharField(max_length=15, choices=STATUS_REGISTRO)
     #finalizado_em = models.DateField(default=)

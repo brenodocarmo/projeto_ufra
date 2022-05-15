@@ -1,0 +1,129 @@
+{% load static %}
+{% load account %}
+{% user_display user as user_display %}
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <style media="screen">
+    button[name="drop"]{
+      border: none;
+      cursor: pointer;
+      background-color: #343a40;
+      padding: 10px;
+      color: white;
+      display: inline-block;
+      padding-top: 0.3125rem;
+      padding-bottom: 0.3125rem;
+      margin-right: 1rem;
+      font-size: 1.25rem;
+      line-height: inherit;
+      white-space: nowrap;
+    }
+    .menu-drop{
+      display: inline-block;
+      position: relative;
+      
+    }
+    .drop-content{
+      display: none;
+      background-color: #343a40;
+      position: absolute;
+      z-index: 1;
+    }
+    .drop-content a{
+      color: white;
+      padding: 8px 10px;
+      text-decoration: none;
+      display: block;
+    }
+    .drop-content a:hover{
+      background-color: #5c656f;
+    }
+    .menu-drop:hover .drop-content{
+      display: block;
+    }
+    .menu-drop:hover button[name="drop"]{
+      background-color: #343a40
+    }
+  </style>
+
+
+  <title>{% block titulo %}Controle de Serviço{% endblock %}</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> -->
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+  <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'dashboard' %}">{% block titulo_nav %}Controle de Serviço{% endblock %}</a>
+      <div class="menu-drop">
+        <button type="button" name="drop">Cadastro</button>
+        <div class="drop-content">
+          <a href="{% url 'formDepartamento' %}">Departamento</a>
+          <a href="{% url 'formUnidade' %}">Unidade</a>
+        </div>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      {% block sair %}
+      <div class="justify-content-end navbar-collapse collapse" id="navbarNav">
+        {% if user.is_authenticated %}
+        <ul class="navbar-brand">
+          Logado como: {% user_display user %}
+      </ul>
+      <ul class="navbar-nav">
+        <a class="nav-link btn text-white my-2 px-5 me-2 fw-bold" href="{% url 'account_logout' %}" style="background-color: rgb(240, 7, 7);">Sair</a>
+      </ul>
+        {% else %}
+        <ul class="navbar-nav">
+          <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" style="background-color: rgb(28, 52, 231);" href="{% url 'account_login' %}" >Entrar</a>
+        </ul>
+        {% endif %}
+      </div>
+      {% endblock%}
+    </div>
+    
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        
+        {% block contend %} {% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static '/jquery/jquery.slim.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

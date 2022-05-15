@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block titulo %}Login{% endblock %}
+
+{% block titulo_nav %}  Inicio {% endblock %}
+{% block sair %} 
+<ul class="nav-link btn text-white my-2 px-5 me-2 fw-bold" class="navbar-nav">
+    <a class="navbar-brand" href="#">Até Logo!</a>
+</ul>
+{% endblock %}
+{% block contend %}
+<h2>Sair</h2>
+<div class="card-body">
+    <h4>Você tem certeza que deseja sair?</h4>
+    <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Sair</button>
+    </form>
+</div>
+    
+{% endblock %}

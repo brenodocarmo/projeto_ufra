@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block titulo %}Cadastro de Unidade{% endblock %}
+
+{% block titulo_nav %}Cadastro de Unidade{% endblock %}
+
+
+{% block contend %}
+<div class="container mt-5" style="width: 100%;">
+    <div class="d-flex justify-content-between mb-4">
+        <div>
+            <h2 class="fw-bold" style="color: rgb(9, 10, 10);">Novo Registro</h2>
+          </div>
+          <!-- <div>
+            <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" href="{% url 'dashboard' %}" style="background-color: rgb(15, 30, 200);">Meus Chamados</a>
+          </div> -->
+        </div>
+            <form action="" method="POST"> 
+                {% csrf_token %} 
+                <table class="table">
+                    {{form|bootstrap}} <!--Variavel do context indica na função em views.py -->
+                    <tr>
+                        <td colspan="8">
+                            <button type="submit" class="btn btn-primary ">Enviar</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

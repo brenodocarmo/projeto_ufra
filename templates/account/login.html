@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block titulo %}Login{% endblock %}
+
+{% block titulo_nav %}  Inicio {% endblock %}
+
+{% block contend %}
+<style>
+  .auth-card {
+    margin-bottom: 30px;
+  }
+</style>
+<div class="row">
+    <div  class="col-md-4 offset-md-4">
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="card  auth-card">
+        <div class="card-body">
+          <h4 class="card-title text-center">Acessar o Sistema</h4>
+          <form method="POST"> 
+            {% csrf_token %}
+            <input type="hidden" name="next", value="{{ next }}">
+            {{form|bootstrap}}
+            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
