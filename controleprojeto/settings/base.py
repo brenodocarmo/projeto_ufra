@@ -135,6 +135,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'controleprojeto/static')
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = BASE_DIR / "staticfiles"
+#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -174,9 +177,3 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 ACCOUNT_LOGOUT_REDIRECT_URL ="/accounts/login"
-
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = "/static/"
-#STATIC_ROOT = BASE_DIR / "staticfiles"
-#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
