@@ -11,7 +11,9 @@ from django.views.generic.detail import DetailView
 
 
 
-class ArticleDetailView(DetailView):
+class DetalhesRegistro(LoginRequiredMixin,DetailView):
+
+    login_url: reverse_lazy('account_login')
 
     model = Registro
 
@@ -19,6 +21,15 @@ class ArticleDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
         return context
+
+class AtualizarRegistro(LoginRequiredMixin,UpdateView):
+
+    login_url: reverse_lazy('account_login')
+
+    model = Registro
+    fields = "__all__"
+    template_name = "registro.html"
+    success_url = reverse_lazy('dashboard')
     
 def dashboard(request):
     
@@ -30,7 +41,6 @@ def dashboard(request):
         'registros': registros
     }
     return render(request,'dashboard.html', dados)
-
 
 
 def detalhes(request, registro_id):
@@ -81,13 +91,7 @@ def formRegistro(request):
             return redirect('dashboard')
         else:
             pass
-class AtualizarRegistro(LoginRequiredMixin,UpdateView):
-    
-    model = Registro
-    fields = "__all__"
-    template_name = "registro.html"
-    success_url = reverse_lazy('dashboard')
-    login_url: reverse_lazy('account_login')
+
 
 def formDepartamento(request):
     if not request.user.is_authenticated:
@@ -106,9 +110,5 @@ def formDepartamento(request):
             return redirect('dashboard')
         else:
             pass
-
-
-
-# ggg
 
 # Fim views
