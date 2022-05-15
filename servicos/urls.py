@@ -7,7 +7,7 @@ from . import views
 
 urlpatterns = [
     path('',views.dashboard, name='dashboard'),
-    path('<int:registro_id>', views.detalhes, name='detalhes'),
+    path('detalhes/<int:registro_id>', views.detalhes, name='detalhes'),
     path('unidade/', views.formUnidade, name='formUnidade'),
     path('registro/', views.formRegistro, name='formRegistro'),
     path('departamento/', views.formDepartamento, name='formDepartamento'),
