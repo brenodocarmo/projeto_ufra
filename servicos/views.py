@@ -10,10 +10,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
     
 def dashboard(request):
-    '''
+    
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
-    '''
+    
     registros = Registro.objects.all()
     dados = {
         'registros': registros
@@ -26,7 +26,6 @@ def detalhes(request, registro_id):
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
     registro = Registro.objects.get(id=registro_id)
-    # unidade = Unidade.objects.get(id=registro_id)
 
     dados = {
         'registro': registro,
