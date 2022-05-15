@@ -38,9 +38,10 @@
               <td>{{registro.departamento_id}}</td>
               <td>{{registro.status}}</td>
               <td>
+                
                 <a href="{% url 'detalhes' registro.id %}" class="btn btn-warning btn-sm" title="Visualizar">
                 <!-- <a href="detalhes/{{registro.id}}" class="btn btn-warning btn-sm" title="Editar"> -->
-                  <i class="fa-solid fa-pen-to-square"></i>          
+                  <img src="static/icons/lista-de-controle.png" alt="Editar">        
               </td>
             </tr>
           {% endfor %}
