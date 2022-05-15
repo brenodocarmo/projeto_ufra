@@ -67,7 +67,13 @@ def formRegistro(request):
             return redirect('dashboard')
         else:
             pass
-
+class AtualizarRegistro(LoginRequiredMixin,UpdateView):
+    
+    model = Registro
+    fields = "__all__"
+    template_name = "registro.html"
+    success_url = reverse_lazy('dashboard')
+    login_url: reverse_lazy('account_login')
 
 def formDepartamento(request):
     if not request.user.is_authenticated:
@@ -88,13 +94,7 @@ def formDepartamento(request):
             pass
 
 
-class AtualizarRegistro(LoginRequiredMixin,UpdateView):
-    
-    model = Registro
-    fields = "__all__"
-    template_name = "registro.html"
-    success_url = reverse_lazy('dashboard')
-    login_url: reverse_lazy('account_login')
+
 # ggg
 
 # Fim views
