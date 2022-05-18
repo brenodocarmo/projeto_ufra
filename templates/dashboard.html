@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load account %}
-{% load static %}
 {% block titulo %}Controle de Serviço{% endblock %}
 
 {% block titulo_nav %}Controle de Serviço{% endblock %}
@@ -42,7 +41,7 @@
                 
                 <a href="{% url 'detalhes' registro.id %}" title="Visualizar">
                   
-                  <img src="static/icons/editar-color.png" alt="Editar" width="20" height="20">     
+                  <img src="https://cdn-icons-png.flaticon.com/512/4696/4696792.png" alt="Editar" width="20" height="20">     
               </td>
             </tr>
           {% endfor %}
