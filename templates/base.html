@@ -89,11 +89,15 @@
       {% block sair %}
       <div class="justify-content-end navbar-collapse collapse" id="navbarNav">
         {% if user.is_authenticated %}
-        <ul class="navbar-brand">
-          Logado como: {% user_display user %}
-      </ul>
+          <div class="menu-drop">
+            <button type="button" name="drop"> {% user_display user %}</button>
+            <div class="drop-content">
+              <a href="{% url 'account_change_password' %}">Senha</a>
+              <a href="{% url 'account_email' %}">E-mail</a>
+            </div>
+          </div>
       <ul class="navbar-nav">
-        <a class="nav-link btn text-white my-2 px-5 me-2 fw-bold" href="{% url 'account_logout' %}" style="background-color: rgb(240, 7, 7);">Sair</a>
+        <a class="btn btn-danger" href="{% url 'account_logout' %}" style="background-color: rgb(240, 7, 7);">Sair</a>
       </ul>
         {% else %}
         <div class="row mx-md-n15">
