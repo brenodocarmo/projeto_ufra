@@ -25,7 +25,7 @@ class DetalhesRegistro(LoginRequiredMixin,DetailView):
 class AtualizarRegistro(LoginRequiredMixin,UpdateView):
 
     login_url: reverse_lazy('account_login')
-
+    
     model = Registro
     fields = "__all__"
     template_name = "registro.html"
