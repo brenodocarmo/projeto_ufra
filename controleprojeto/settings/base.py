@@ -47,12 +47,15 @@ INSTALLED_APPS = [
     'fontawesomefree',
     'bootstrapform',
     'anymail',
+    "users.apps.UsersConfig", # User Personalizado
 
     # Autenticação do Usuario
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 ]
+
+AUTH_USER_MODEL = "users.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -13,6 +13,8 @@ class UnidadeForm(ModelForm):
         fields = "__all__"
 
 class RegistroForm(ModelForm):
+    def dataapped(self,chave,valor):
+        self.data[chave] = valor
     class Meta:
         model = models.Registro
-        fields = "__all__"
+        fields = ['titulo','descricao','departamento_id','patrimonio']
