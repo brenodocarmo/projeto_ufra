@@ -110,7 +110,6 @@ def detalhes(request, registro_id):
 
     dados = {
         'registro': registro,
-        #'unidade': unidade
     }
     return render(request,'detalhes.html ', dados)
 
