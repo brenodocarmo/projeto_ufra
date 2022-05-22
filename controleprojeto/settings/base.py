@@ -188,8 +188,8 @@ EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 DEFAULT_FROM_EMAIL = 'no-replay@meusite.com'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 ANYMAIL = {
-    'MAILGUN_API_KEY':'6d1a7b99413df052a1c190ed0d716bef-5e7fba0f-ba2b3600',
-    'MAILGUN_SENDER_DOMAIN': 'sandbox1771e98efc034c62bf00d7fd46e487b4.mailgun.org'
+    'MAILGUN_API_KEY':'',
+    'MAILGUN_SENDER_DOMAIN': '.mailgun.org'
 }
 # from django.core.mail import send_email
 # send_mail('Test','Ola isso e um teste','David Silva <david@email.com>',['vegiw58071@akapple.com'])
