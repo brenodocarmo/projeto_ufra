@@ -17,8 +17,8 @@ from email.message import EmailMessage
 def SendSMTPEmail(destinatario,assunto,mensagem):
 
     # Login e senha
-    EMAIL_ADRESS =  '@gmail.com'
-    EMAIL_PASSWORD = ''
+    EMAIL_ADRESS =  'scsti.suporte@gmail.com'
+    EMAIL_PASSWORD = 'scstifdsa4321'
     EMAIL_SMTP_SERVER = 'smtp.gmail.com'
     EMAIL_SMTP_PORT = 465
 
