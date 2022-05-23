@@ -192,4 +192,4 @@ ANYMAIL = {
     'MAILGUN_SENDER_DOMAIN': '.mailgun.org'
 }
 # from django.core.mail import send_email
-# send_mail('Test','Ola isso e um teste','David Silva <david@email.com>',['vegiw58071@akapple.com'])
+# send_mail('Test','Ola isso e um teste','Fulano da Silva <funalo@email.com>',['destinatario@email.com'])
