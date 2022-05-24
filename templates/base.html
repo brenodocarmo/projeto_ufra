@@ -79,9 +79,10 @@
         <button type="button" name="drop">Cadastro</button>
         <div class="drop-content">
           <a href="{% url 'formDepartamento' %}">Departamento</a>
-          <a href="{% url 'formUnidade' %}">Unidade</a>
+          <a class="navbar-brand" href="{% url 'formUnidade' %}">Unidade</a>
         </div>
       </div>
+      <a class="navbar-brand" href="{% url 'report' %}"> Atendimentos </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

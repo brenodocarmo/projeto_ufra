@@ -12,5 +12,5 @@ urlpatterns = [
     path('registro/', views.formRegistro, name='formRegistro'),
     path('departamento/', views.formDepartamento, name='formDepartamento'),
     path('editar/<int:pk>/', views.AtualizarRegistro.as_view(), name='editar'),
-    path('report/', views.report, name='relatorio'),
+    path('report/', views.report, name='report'),
     ]
