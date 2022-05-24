@@ -98,6 +98,7 @@ def dashboard(request):
         return redirect(reverse_lazy('account_login'))
     
     registros = Registro.objects.all()
+    registros.order_by('id')
     dados = {
         'registros': registros
     }
