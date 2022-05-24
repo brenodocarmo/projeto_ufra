@@ -8,7 +8,7 @@
 <div class="container mt-5" style="width: 100%;">
   <div class="d-flex justify-content-between mb-11">
     <div>
-      <h2 class="fw-bold" style="color: rgb(19, 20, 19);">Fila de demanda</h2>
+      <h2 class="fw-bold" style="color: rgb(19, 20, 19);"> Atendimentos </h2>
     </div>
     <div>
       <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" href="{% url 'formRegistro' %}" style="background-color: rgb(28, 52, 231);">Novo Chamado</a>
@@ -20,28 +20,16 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Código</th>
-            <th>Título</th>
-            <th>Atualizado Em</th>
-            <th>Departamento</th>
             <th>Status</th>
-            <th>Ações</th>
+            <th>Chamados</th>
           </tr>
         </thead>
         <tbody>
-          {% if registros %}
-          {% for registro in registros%}
+          {% if dados %}
+          {% for d in dados%}
             <tr>
-              <td>{{registro.id}}</td>
-              <td>{{registro.titulo}}</td>
-              <td>{{registro.criado_em}}</td>
-              <td>{{registro.departamento_id}}</td>
-              <td>{{registro.status}}</td>
-              <td>
-                
-                <a href="{% url 'detalhes' registro.id %}" title="Visualizar">
-                  <img src="https://dasigo13.web.app/static/icons/editar-color.png" alt="Editar" width="20" height="20">     
-              </td>
+              <td>{{d.status}}</td>
+              <td>{{d.quantidade}}</td>
             </tr>
           {% endfor %}
           {% else %}

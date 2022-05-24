@@ -1,5 +1,6 @@
 # Pacotes
 import smtplib
+from telnetlib import STATUS
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -171,5 +172,29 @@ def formDepartamento(request):
             return redirect('dashboard')
         else:
             pass
+
+def report(request):
+    
+    class obj ():
+        status_chamado = ''
+        quantidade = ''
+        def __init__(self,status_chamado,quantidade):
+            self.status = status_chamado
+            self.quantidade = quantidade
+            
+    if not request.user.is_authenticated:
+        return redirect(reverse_lazy('account_login'))
+    registros = []
+
+
+    STATUS_REGISTRO = ['Pendente','Em andamento','Finalizado', 'Cancelado']
+    
+    
+    for i in STATUS_REGISTRO:
+        registros.append(obj(i,Registro.objects.filter(status=i).count))
+    dados = {
+        'dados':registros
+    }
+    return render(request,'report.html', dados)
 
 # Fim views
