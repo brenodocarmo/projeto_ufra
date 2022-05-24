@@ -59,7 +59,7 @@ AUTH_USER_MODEL = "users.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-     'whitenoise.middleware.WhiteNoiseMiddleware',
+     #"whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,8 +134,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'controleprojeto/static')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = BASE_DIR / "staticfiles"
 #STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
@@ -187,4 +192,4 @@ ANYMAIL = {
     'MAILGUN_SENDER_DOMAIN': '.mailgun.org'
 }
 # from django.core.mail import send_email
-# send_mail('Test','Ola isso e um teste','Fulano da Silva <funalo@email.com>',['destinatario@email.com'])
+# send_mail('Test','Ola isso e um teste','David Silva <david@email.com>',['vegiw58071@akapple.com'])
