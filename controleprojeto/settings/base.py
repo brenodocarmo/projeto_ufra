@@ -50,9 +50,9 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig", # User Personalizado
 
     # Autenticação do Usuario
-    #'allauth',
-    #'allauth.account',
-    #'allauth.socialaccount',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -174,7 +174,7 @@ LOGOUT_REDIRECT_URL = 'accounts/login'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    #'allauth.account.auth_backends.AuthenticationBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 ACCOUNT_SESSION_REMEMBER = True
