@@ -41,7 +41,7 @@
               <td>
                 
                 <a href="{% url 'detalhes' registro.id %}" title="Visualizar">
-                  <img src="https://dasigo13.web.app/static/icons/editar-color.png" alt="Editar" width="20" height="20">     
+                  <img src="{% static 'icons/editar-color.png' %}" alt="Editar" width="20" height="20">     
               </td>
             </tr>
           {% endfor %}
@@ -49,5 +49,4 @@
           {% endif %}        
         </tbody>
       </table>
-      <img src="{% static 'icons/editar-color.png' %}" alt="Teste">
 {% endblock %}
