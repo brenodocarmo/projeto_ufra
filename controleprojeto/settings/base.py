@@ -186,7 +186,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
 
-#ACCOUNT_LOGOUT_REDIRECT_URL ="/accounts/login"
+ACCOUNT_LOGOUT_REDIRECT_URL ="/accounts/login"
 
 
 '''
