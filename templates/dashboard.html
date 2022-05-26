@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load account %}
+{% load static %}
 {% block titulo %}Controle de Serviço{% endblock %}
 
 {% block titulo_nav %}Controle de Serviço{% endblock %}
@@ -48,4 +49,5 @@
           {% endif %}        
         </tbody>
       </table>
+      <img src="{% static 'icons/editar-color.png'%}" alt="Teste">
 {% endblock %}
