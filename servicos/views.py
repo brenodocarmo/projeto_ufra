@@ -94,8 +94,8 @@ class AtualizarRegistro(LoginRequiredMixin,UpdateView):
 
 def dashboard(request):
     
-    if not request.user.is_authenticated:
-        return redirect(reverse_lazy('account_login'))
+    #if not request.user.is_authenticated:
+    #    return redirect(reverse_lazy('account_login'))
     
     registros = Registro.objects.all()
     registros.order_by('id')
