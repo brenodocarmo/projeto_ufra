@@ -89,6 +89,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'controleprojeto.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
