@@ -34,7 +34,7 @@ class Registro(models.Model):
     status = models.CharField(max_length=15, choices=STATUS_REGISTRO,default='Pendente')
     #finalizado_em = models.DateField(default=)
     patrimonio = models.CharField(max_length=10, unique=True)
-    user = models.ForeignKey(User, on_delete=models.RESTRICT,null=True)
+    user = models.ForeignKey(User, on_delete=models.RESTRICT,null=False)
 
 
     def __str__(self):

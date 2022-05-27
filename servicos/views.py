@@ -3,20 +3,53 @@ import smtplib
 from telnetlib import STATUS
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.utils import timezone
-from .models import Registro
-from .forms import UnidadeForm, DepartamentoForm, RegistroForm
-from django.contrib import messages
+from requests import request
+from .models import Departamento, Registro, Unidade
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
 from django.core.exceptions import ImproperlyConfigured
 from users.models import User
 from email.message import EmailMessage
+from django.views.generic import CreateView
+
+LOGIN_URL = 'account_login'
+
+
+class CriarRegistro(LoginRequiredMixin,CreateView):
+    login_url = reverse_lazy(LOGIN_URL)
+    model = Registro
+    fields = ['titulo','descricao','departamento_id','patrimonio']
+    template_name = 'registro.html'
+    extra_context = {'titulo':'Registrar Chamado'}
+    success_url = reverse_lazy('dashboard')
+
+    def form_valid(self, form):
+        # Coloca o Usuario Atual na instancia do Objeto
+        form.instance.user = self.request.user
+        url = super().form_valid(form)
+        return url
+
+class CriarDepartamento(LoginRequiredMixin,CreateView):
+    login_url = reverse_lazy(LOGIN_URL)
+    model = Departamento
+    fields = "__all__"
+    template_name = 'registro.html'
+    success_url = reverse_lazy('dashboard')
+    extra_context = {'titulo':'Cadastrar Departamento'}
+
+class CriarUnidade(LoginRequiredMixin,CreateView):
+    login_url = reverse_lazy(LOGIN_URL)
+    model = Unidade
+    fields = "__all__"
+    template_name = 'registro.html'
+    success_url = reverse_lazy('dashboard')
+    extra_context = {'titulo':'Cadastrar Unidade'}
+
+
 
 # Configaraçoes de e-mail SMTP
 def SendSMTPEmail(destinatario,assunto,mensagem):
-
     # Login e senha
     EMAIL_ADRESS =  'scsti.suporte@gmail.com'
     EMAIL_PASSWORD = 'scstifdsa4321'
@@ -39,16 +72,8 @@ def SendSMTPEmail(destinatario,assunto,mensagem):
 
 
 class DetalhesRegistro(LoginRequiredMixin,DetailView):
-
-
-    login_url: reverse_lazy('account_login')
-
+    login_url = reverse_lazy('account_login')
     model = Registro
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()
-        return context
 
 class AtualizarRegistro(LoginRequiredMixin,UpdateView):
 
@@ -104,75 +129,6 @@ def dashboard(request):
     }
     return render(request,'dashboard.html', dados)
 
-
-def detalhes(request, registro_id):
-    if not request.user.is_authenticated:
-        return redirect(reverse_lazy('account_login'))
-    registro = Registro.objects.get(id=registro_id)
-
-    dados = {
-        'registro': registro,
-    }
-    return render(request,'detalhes.html ', dados)
-
-
-def formUnidade(request):
-    if not request.user.is_authenticated:
-        return redirect(reverse_lazy('account_login'))
-    form = UnidadeForm()
-    context = {'form': form, 'titulo': 'Cadastro de Unidade'}
-    # Cria um variavel do tipo da Classe criande em form.py
-    if request.method == 'GET':
-        return render(request,'registro.html',context=context)
-    else:
-        form = UnidadeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            form = UnidadeForm()
-            return redirect('dashboard')
-        else:
-            pass
-
-
-def formRegistro(request):
-    if not request.user.is_authenticated:
-        return redirect(reverse_lazy('account_login'))
-    form = RegistroForm()
-    context = {'form': form, 'titulo': 'Novo Chamado'}
-    # Cria um variavel do tipo da Classe criande em form.py
-    if request.method == 'GET':
-        return render(request,'registro.html',context=context)
-    else:
-        form = RegistroForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user_id = request.user.id
-            last = Registro.objects.last()
-            last.user_id = user_id
-            last.save()
-            form = RegistroForm()
-            return redirect('dashboard')
-        else:
-            pass
-
-
-def formDepartamento(request):
-    if not request.user.is_authenticated:
-        return redirect(reverse_lazy('account_login'))
-    form = DepartamentoForm()
-    context = {'form': form, 'titulo': 'Cadastro de Departamento'}
-    # Cria um variavel do tipo da Classe criande em form.py
-    if request.method == 'GET':
-        return render(request,'registro.html',context=context)
-    else:
-        form = DepartamentoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            form = DepartamentoForm()
-            messages.add_message(request, messages.SUCCESS, 'Breno')
-            return redirect('dashboard')
-        else:
-            pass
 
 def report(request):
     
