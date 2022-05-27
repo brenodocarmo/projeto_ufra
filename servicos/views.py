@@ -13,8 +13,32 @@ from users.models import User
 from email.message import EmailMessage
 from django.views.generic import CreateView
 
+
+
 LOGIN_URL = 'account_login'
 
+
+
+# Configaraçoes de e-mail SMTP
+def SendSMTPEmail(destinatario,assunto,mensagem):
+    # Login e senha
+    EMAIL_ADRESS =  'scsti.suporte@gmail.com'
+    EMAIL_PASSWORD = 'scstifdsa4321'
+    EMAIL_SMTP_SERVER = 'smtp.gmail.com'
+    EMAIL_SMTP_PORT = 465
+
+    msg = EmailMessage()
+    msg['Subject'] = assunto
+    msg['From'] = EMAIL_ADRESS
+    msg['To'] = destinatario
+    msg.set_content(mensagem)
+
+    with smtplib.SMTP_SSL(EMAIL_SMTP_SERVER,EMAIL_SMTP_PORT) as smtp:
+        smtp.login(EMAIL_ADRESS,EMAIL_PASSWORD)
+        smtp.send_message(msg)
+
+
+############## Cadastro de Objetos #####################
 
 class CriarRegistro(LoginRequiredMixin,CreateView):
     login_url = reverse_lazy(LOGIN_URL)
@@ -47,33 +71,14 @@ class CriarUnidade(LoginRequiredMixin,CreateView):
     extra_context = {'titulo':'Cadastrar Unidade'}
 
 
-
-# Configaraçoes de e-mail SMTP
-def SendSMTPEmail(destinatario,assunto,mensagem):
-    # Login e senha
-    EMAIL_ADRESS =  'scsti.suporte@gmail.com'
-    EMAIL_PASSWORD = 'scstifdsa4321'
-    EMAIL_SMTP_SERVER = 'smtp.gmail.com'
-    EMAIL_SMTP_PORT = 465
-
-    msg = EmailMessage()
-    msg['Subject'] = assunto
-    msg['From'] = EMAIL_ADRESS
-    msg['To'] = destinatario
-    msg.set_content(mensagem)
-
-    with smtplib.SMTP_SSL(EMAIL_SMTP_SERVER,EMAIL_SMTP_PORT) as smtp:
-        smtp.login(EMAIL_ADRESS,EMAIL_PASSWORD)
-        smtp.send_message(msg)
-
-
-
-
-
+############# Visualizar ####################
 
 class DetalhesRegistro(LoginRequiredMixin,DetailView):
     login_url = reverse_lazy('account_login')
     model = Registro
+
+
+################## Atualizar ###################
 
 class AtualizarRegistro(LoginRequiredMixin,UpdateView):
 
@@ -117,18 +122,7 @@ class AtualizarRegistro(LoginRequiredMixin,UpdateView):
         else:
             raise ImproperlyConfigured("No URL to redirect to. Provide a success_url.")
 
-def dashboard(request):
-    
-    if not request.user.is_authenticated:
-        return redirect(reverse_lazy('account_login'))
-    
-    registros = Registro.objects.all()
-    registros.order_by('id')
-    dados = {
-        'registros': registros
-    }
-    return render(request,'dashboard.html', dados)
-
+################## Relatório ####################
 
 def report(request):
     
@@ -141,17 +135,28 @@ def report(request):
             
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
-    registros = []
-
-
-    STATUS_REGISTRO = ['Pendente','Em andamento','Finalizado', 'Cancelado']
     
+    registros = []
+    STATUS_REGISTRO = Registro.STATUS_REGISTRO
     
     for i in STATUS_REGISTRO:
-        registros.append(obj(i,Registro.objects.filter(status=i).count))
+        registros.append(obj(i[0],Registro.objects.filter(status=i[0]).count))
     dados = {
         'dados':registros
     }
     return render(request,'report.html', dados)
+
+def dashboard(request):
+    
+    if not request.user.is_authenticated:
+        return redirect(reverse_lazy('account_login'))
+    
+    registros = Registro.objects.all()
+    registros.order_by('id')
+    dados = {
+        'registros': registros
+    }
+    return render(request,'dashboard.html', dados)
+
 
 # Fim views
