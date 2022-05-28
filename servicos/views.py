@@ -110,6 +110,12 @@ class AtualizarRegistro(LoginRequiredMixin,UpdateView):
     email_to_send = ''
     chamado = ''
 
+    def get(self, request, *args, **kwargs):
+        if self.get_object.user_id != request.user.id and request.user.is_superuser == False:
+            return render(request,'no_acces.html')
+        self.object = self.get_object()
+        return super().get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
 
         # Email sender status before
