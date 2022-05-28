@@ -12,5 +12,6 @@ urlpatterns = [
     path('departamento/', views.CriarDepartamento.as_view(), name='formDepartamento'),
     path('editar/<int:pk>/', views.AtualizarRegistro.as_view(), name='editar'),
     path('report/', views.report, name='report'),
-    path('registro/',views.CriarRegistro.as_view(),name='formRegistro')
+    path('registro/',views.CriarRegistro.as_view(),name='formRegistro'),
+    path('teste/',views.teste,name='teste'),
     ]

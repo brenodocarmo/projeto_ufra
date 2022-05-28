@@ -1,6 +1,7 @@
 # Pacotes
 import smtplib
 from telnetlib import STATUS
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from requests import request
@@ -147,16 +148,28 @@ def report(request):
     return render(request,'report.html', dados)
 
 def dashboard(request):
-    
+    type_user = ''
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
-    
-    registros = Registro.objects.all()
+    if request.user.is_superuser:
+        registros = Registro.objects.all()
+        type_user = 'Administrador'
+    else:
+        registros = Registro.objects.filter(user_id=request.user.id)
+        type_user = 'Colaborador'
     registros.order_by('id')
-    dados = {
-        'registros': registros
+    context = {
+        'registros': registros,'type_user': type_user
     }
-    return render(request,'dashboard.html', dados)
+    return render(request,'dashboard.html', context=context)
 
 
 # Fim views
+
+
+def teste(request):
+    print('--------------------------------')
+    #h = list(User.objects.filter(id=1).values())[0]['username']
+
+    print('---------------------------------')
+    return render(request,'404.html')
