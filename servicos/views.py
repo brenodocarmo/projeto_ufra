@@ -85,7 +85,7 @@ def detalhes(request,pk):
 
     obj_dic = list(Registro.objects.filter(id=pk).values())[0]
 
-    if obj_dic['user_id'] != pk:
+    if obj_dic['user_id'] != pk and request.user.is_superuser == False:
         return render(request,'no_acces.html')
     dados = {
     # Seleciona o obj no BD pela Primary Key => PK
