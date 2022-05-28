@@ -90,7 +90,7 @@
       {% block sair %}
       <div class="justify-content-end navbar-collapse collapse" id="navbarNav">
         {% if user.is_authenticated %}
-        <a class="navbar-brand" >{{ type_user }}:</a>
+        <a href="#" class="navbar-brand" >{{ type_user }}:</a>
           <div class="menu-drop">
             <button type="button" name="drop"> {% user_display user %}</button>
             <div class="drop-content">
