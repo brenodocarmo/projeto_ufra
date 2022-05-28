@@ -4,6 +4,7 @@ from telnetlib import STATUS
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from matplotlib.style import context
 from requests import request
 from .models import Departamento, Registro, Unidade
 from django.views.generic.edit import UpdateView
@@ -13,7 +14,7 @@ from django.core.exceptions import ImproperlyConfigured
 from users.models import User
 from email.message import EmailMessage
 from django.views.generic import CreateView
-
+from django.utils.decorators import classonlymethod
 
 
 LOGIN_URL = 'account_login'
@@ -74,9 +75,23 @@ class CriarUnidade(LoginRequiredMixin,CreateView):
 
 ############# Visualizar ####################
 
+'''
 class DetalhesRegistro(LoginRequiredMixin,DetailView):
-    login_url = reverse_lazy('account_login')
+    login_url: reverse_lazy('account_login')
     model = Registro
+'''
+
+def detalhes(request,pk):
+
+    obj_dic = list(Registro.objects.filter(id=pk).values())[0]
+
+    if obj_dic['user_id'] != pk:
+        return render(request,'no_acces.html')
+    dados = {
+    # Seleciona o obj no BD pela Primary Key => PK
+        'object': Registro.objects.filter(id=pk).first
+    }
+    return render(request,'servicos/registro_detail.html',context=dados)
 
 
 ################## Atualizar ###################
@@ -148,18 +163,15 @@ def report(request):
     return render(request,'report.html', dados)
 
 def dashboard(request):
-    type_user = ''
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
     if request.user.is_superuser:
         registros = Registro.objects.all()
-        type_user = 'Administrador'
     else:
         registros = Registro.objects.filter(user_id=request.user.id)
-        type_user = 'Colaborador'
     registros.order_by('id')
     context = {
-        'registros': registros,'type_user': type_user
+        'registros': registros
     }
     return render(request,'dashboard.html', context=context)
 
@@ -167,7 +179,7 @@ def dashboard(request):
 # Fim views
 
 
-def teste(request):
+def erro_404(request):
     print('--------------------------------')
     #h = list(User.objects.filter(id=1).values())[0]['username']
 

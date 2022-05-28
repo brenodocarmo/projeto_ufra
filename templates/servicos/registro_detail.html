@@ -8,7 +8,7 @@
 
 {% block contend %}
 
-  <h1 class="mt-5">{{registro.titulo}}</h1>
+  <h1 class="mt-5">{{object.titulo}}</h1>
     <dl>
       <dt>Código</dt>
       <dd>{{object.id}}</dd>
@@ -34,10 +34,6 @@
       </dd>
     </dl>
     
-    
     <a class="btn btn-primary" href="{% url 'editar' object.id %}" style="background-color: rgb(28, 52, 231);">Editar</a>
-    
-
-
 
 {% endblock %}
