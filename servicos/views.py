@@ -1,7 +1,5 @@
 # Pacotes
 import smtplib
-from telnetlib import STATUS
-from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from matplotlib.style import context
@@ -9,17 +7,14 @@ from requests import request
 from .models import Departamento, Registro, Unidade
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.detail import DetailView
 from django.core.exceptions import ImproperlyConfigured
 from users.models import User
 from email.message import EmailMessage
 from django.views.generic import CreateView
-from django.utils.decorators import classonlymethod
+from . import forms
 
-
+# url para redirecionar o usuario quando não logado
 LOGIN_URL = 'account_login'
-
-
 
 # Configaraçoes de e-mail SMTP
 def SendSMTPEmail(destinatario,assunto,mensagem):
@@ -41,26 +36,44 @@ def SendSMTPEmail(destinatario,assunto,mensagem):
 
 
 ############## Cadastro de Objetos #####################
+'''
+def criarChamado(request):
+    form = forms.RegistroForm()
+    context = {
+        'form':form, 'titulo': 'Registrar Chamado'
+    }
+    if request.method == "GET":
+        return render(request,'novo_chamado.html',context)
+    else:
+        form = forms.RegistroForm(request.POST)
+        print('Data Form: ',form.data)
+        if form.is_valid():
+            form.clean_patrimonio()
+            form.save()
+            form = forms.RegistroForm()
+            return redirect(reverse_lazy('dashboard'))
+        return render(request,'novo_chamado.html',context)
+'''
+
 
 class CriarRegistro(LoginRequiredMixin,CreateView):
     login_url = reverse_lazy(LOGIN_URL)
     model = Registro
     fields = ['titulo','descricao','departamento_id','patrimonio']
-    template_name = 'registro.html'
+    template_name = 'generic_form.html'
     extra_context = {'titulo':'Registrar Chamado'}
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
         # Coloca o Usuario Atual na instancia do Objeto
         form.instance.user = self.request.user
-        url = super().form_valid(form)
-        return url
+        return super().form_valid(form)
 
 class CriarDepartamento(LoginRequiredMixin,CreateView):
     login_url = reverse_lazy(LOGIN_URL)
     model = Departamento
     fields = "__all__"
-    template_name = 'registro.html'
+    template_name = 'generic_form.html'
     success_url = reverse_lazy('dashboard')
     extra_context = {'titulo':'Cadastrar Departamento'}
 
@@ -68,7 +81,7 @@ class CriarUnidade(LoginRequiredMixin,CreateView):
     login_url = reverse_lazy(LOGIN_URL)
     model = Unidade
     fields = "__all__"
-    template_name = 'registro.html'
+    template_name = 'generic_form.html'
     success_url = reverse_lazy('dashboard')
     extra_context = {'titulo':'Cadastrar Unidade'}
 
@@ -94,6 +107,15 @@ def detalhes(request,pk):
     }
     return render(request,'servicos/registro_detail.html',context=dados)
 
+def meus_chamados(request):
+    if not request.user.is_authenticated:
+        return redirect(reverse_lazy('account_login'))
+    context = {
+        'registros': Registro.objects.filter(user_id=request.user.id)
+    }
+    return render(request,'dashboard.html', context=context)
+    
+
 
 ################## Atualizar ###################
 
@@ -103,7 +125,7 @@ class AtualizarRegistro(LoginRequiredMixin,UpdateView):
 
     model = Registro
     fields = ["titulo","descricao","departamento_id","status","patrimonio"]
-    template_name = "registro.html"
+    template_name = "generic_form.html"
     success_url = reverse_lazy('dashboard')
 
     status_before = ''
@@ -139,7 +161,7 @@ class AtualizarRegistro(LoginRequiredMixin,UpdateView):
             email_message = f'O Status do chamado: {self.chamado} foi Atualizado de {self.status_before} para {self.status_after}'
 
             # Envio do E-mail
-            SendSMTPEmail(self.email_to_send,'Atualização de Status do Chamado',email_message)
+            #SendSMTPEmail(self.email_to_send,'Atualização de Status do Chamado',email_message)
 
             return self.success_url.format(**self.object.__dict__)
         else:
@@ -173,9 +195,9 @@ def dashboard(request):
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
     if request.user.is_superuser:
-        registros = Registro.objects.all()
+        registros = Registro.objects.all().exclude(status='Finalizado').exclude(status='Cancelado')
     else:
-        registros = Registro.objects.filter(user_id=request.user.id)
+        registros = Registro.objects.filter(user_id=request.user.id).exclude(status='Finalizado').exclude(status='Cancelado')
     registros.order_by('id')
     context = {
         'registros': registros

@@ -33,7 +33,7 @@ class Registro(models.Model):
     departamento_id = models.ForeignKey(Departamento, on_delete=models.RESTRICT)
     status = models.CharField(max_length=15, choices=STATUS_REGISTRO,default='Pendente')
     #finalizado_em = models.DateField(default=)
-    patrimonio = models.CharField(max_length=10, unique=True)
+    patrimonio = models.CharField(max_length=10, unique=False)
     user = models.ForeignKey(User, on_delete=models.RESTRICT,null=False)
 
 
