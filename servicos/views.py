@@ -88,12 +88,6 @@ class CriarUnidade(LoginRequiredMixin,CreateView):
 
 ############# Visualizar ####################
 
-'''
-class DetalhesRegistro(LoginRequiredMixin,DetailView):
-    login_url: reverse_lazy('account_login')
-    model = Registro
-'''
-
 def detalhes(request,pk):
 
     obj_dic = list(Registro.objects.filter(id=pk).values())[0]
@@ -103,7 +97,7 @@ def detalhes(request,pk):
             return render(request,'no_acces.html')
     dados = {
     # Seleciona o obj no BD pela Primary Key => PK
-        'object': Registro.objects.filter(id=pk).first
+        'object': Registro.objects.filter(id=pk).first,'titulo_site':'Detalhes'
     }
     return render(request,'servicos/registro_detail.html',context=dados)
 
@@ -122,7 +116,7 @@ def meus_chamados(request):
         registros = paginator.page(paginator.num_pages)
     # Fim da Paginação
     context = {
-        'registros': registros,'table_title':'Meus Chamados'
+        'registros': registros,'table_title':'Meus Chamados','titulo_site':'Meus Chamados'
     }
     return render(request,'dashboard.html', context=context)
     
@@ -200,7 +194,7 @@ def report(request):
 
 
     dados = {
-        'dados':registros
+        'dados':registros,'titulo_site':'Atendimentos'
     }
     return render(request,'report.html', dados)
 
