@@ -1,18 +1,14 @@
 # Pacotes
-from email import message
 import smtplib
 from django import forms
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from matplotlib.colors import rgb2hex
-from matplotlib.style import context
-from requests import request
 from .models import Departamento, Registro, Unidade
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ImproperlyConfigured
 from users.models import User
-from . import forms
+from .forms import RegistroForm
 from email.message import EmailMessage
 from django.views.generic import CreateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -89,14 +85,20 @@ class CriarUnidade(LoginRequiredMixin,CreateView):
     extra_context = {'titulo':'Cadastrar Unidade'}
 
 
-def criarRegistro(request):
-    form = forms.RegistroForm()
+def criarRegistro(request): 
+    if not request.user.is_authenticated:
+        return redirect(reverse_lazy('account_login'))
+
+    form = RegistroForm()
+    form.fields['user'].widget =  forms.HiddenInput()
     if request.method == 'POST':
-        form = forms.RegistroForm(request.POST)
-        form.fields['user_id'].initial = request.user.id
+        request.POST._mutable = True
+        request.POST['user'] = request.user.id
+        form = RegistroForm(request.POST)
         if form.is_valid():
             form.save()
-            form = forms.DepartamentoForm()
+            form = RegistroForm()
+            form.fields['user'].widget =  forms.HiddenInput()
             return redirect(reverse_lazy('dashboard'))
     
     context = {

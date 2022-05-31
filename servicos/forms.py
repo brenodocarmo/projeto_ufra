@@ -20,7 +20,7 @@ class RegistroForm(forms.ModelForm):
     #patrimonio = forms.CharField(validators=[validarPatrimonio])
     class Meta:
         model = models.Registro
-        fields = ['titulo','descricao','departamento_id','patrimonio']
+        fields = ['titulo','descricao','departamento_id','patrimonio','user']
 
     def clean_patrimonio(self, *args, **kwargs):
         key = self.cleaned_data.get('patrimonio')

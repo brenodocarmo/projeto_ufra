@@ -13,9 +13,9 @@ urlpatterns = [
     path('departamento/', views.CriarDepartamento.as_view(), name='formDepartamento'),
     path('editar/<int:pk>/', views.AtualizarRegistro.as_view(), name='editar'),
     path('report/', views.report, name='report'),
-    path('registro/',views.CriarRegistro.as_view(),name='formRegistro'),
+    #path('registro/',views.CriarRegistro.as_view(),name='formRegistro'),
     path('404/',views.erro_404,name='erro_404'),
     #path('registro/',views.criarChamado,name='formRegistro')
     path('chamados/',views.meus_chamados,name='meus_chamados'),
-    path('teste/',views.criarRegistro,name='teste')
+    path('registro/',views.criarRegistro,name='formRegistro')
     ]
