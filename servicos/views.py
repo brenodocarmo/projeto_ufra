@@ -2,6 +2,7 @@
 import smtplib
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from matplotlib.colors import rgb2hex
 from matplotlib.style import context
 from requests import request
 from .models import Departamento, Registro, Unidade
@@ -11,8 +12,7 @@ from django.core.exceptions import ImproperlyConfigured
 from users.models import User
 from email.message import EmailMessage
 from django.views.generic import CreateView
-from . import forms
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # url para redirecionar o usuario quando não logado
 LOGIN_URL = 'account_login'
 
@@ -110,8 +110,19 @@ def detalhes(request,pk):
 def meus_chamados(request):
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
+    registros = Registro.objects.filter(user_id=request.user.id)
+    # Paginação 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(registros, 10)
+    try:
+        registros = paginator.page(page)
+    except PageNotAnInteger:
+        registros = paginator.page(1)
+    except EmptyPage:
+        registros = paginator.page(paginator.num_pages)
+    # Fim da Paginação
     context = {
-        'registros': Registro.objects.filter(user_id=request.user.id)
+        'registros': registros,'table_title':'Meus Chamados'
     }
     return render(request,'dashboard.html', context=context)
     
@@ -186,21 +197,36 @@ def report(request):
     
     for i in STATUS_REGISTRO:
         registros.append(obj(i[0],Registro.objects.filter(status=i[0]).count))
+
+
     dados = {
         'dados':registros
     }
     return render(request,'report.html', dados)
 
 def dashboard(request):
+    # Autenticação
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
+    
+    # Verificação do Tipo de Usuario
     if request.user.is_superuser:
         registros = Registro.objects.all().exclude(status='Finalizado').exclude(status='Cancelado')
     else:
         registros = Registro.objects.filter(user_id=request.user.id).exclude(status='Finalizado').exclude(status='Cancelado')
-    registros.order_by('id')
+
+    # Paginação 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(registros, 10)
+    try:
+        registros = paginator.page(page)
+    except PageNotAnInteger:
+        registros = paginator.page(1)
+    except EmptyPage:
+        registros = paginator.page(paginator.num_pages)
+    # Fim da Paginação
     context = {
-        'registros': registros
+        'registros': registros,'table_title':'Fila de Demanda'
     }
     return render(request,'dashboard.html', context=context)
 

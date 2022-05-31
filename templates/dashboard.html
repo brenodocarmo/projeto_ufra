@@ -9,7 +9,7 @@
 <div class="container mt-5" style="width: 100%;">
   <div class="d-flex justify-content-between mb-11">
     <div>
-      <h2 class="fw-bold" style="color: rgb(19, 20, 19);">Fila de demanda</h2>
+      <h2 class="fw-bold" style="color: rgb(19, 20, 19);">{{table_title}}</h2>
     </div>
     <div>
       <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" href="{% url 'formRegistro' %}" style="background-color: rgb(28, 52, 231);">Novo Chamado</a>
@@ -50,4 +50,27 @@
           {% endif %}        
         </tbody>
       </table>
+      {% if registros.has_other_pages %}
+      <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if registros.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ registros.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="page-item"><span><a class="page-link" href="">&laquo;</a></span></li>
+        {% endif %}
+        {% for i in registros.paginator.page_range %}
+          {% if registros.number == i %}
+            <li class="page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if registros.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ registros.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="page-item"><span class="page-link">&raquo;</span></li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
 {% endblock %}
