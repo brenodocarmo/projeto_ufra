@@ -1,5 +1,7 @@
 # Pacotes
+from email import message
 import smtplib
+from django import forms
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from matplotlib.colors import rgb2hex
@@ -10,6 +12,7 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ImproperlyConfigured
 from users.models import User
+from . import forms
 from email.message import EmailMessage
 from django.views.generic import CreateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -86,6 +89,20 @@ class CriarUnidade(LoginRequiredMixin,CreateView):
     extra_context = {'titulo':'Cadastrar Unidade'}
 
 
+def criarRegistro(request):
+    form = forms.RegistroForm()
+    if request.method == 'POST':
+        form = forms.RegistroForm(request.POST)
+        form.fields['user_id'].initial = request.user.id
+        if form.is_valid():
+            form.save()
+            form = forms.DepartamentoForm()
+            return redirect(reverse_lazy('dashboard'))
+    
+    context = {
+        'form': form,'titulo':'Registrar Chamado'
+    }
+    return render(request,'generic_form.html',context)
 ############# Visualizar ####################
 
 def detalhes(request,pk):

@@ -20,11 +20,12 @@ class RegistroForm(forms.ModelForm):
     #patrimonio = forms.CharField(validators=[validarPatrimonio])
     class Meta:
         model = models.Registro
-        fields = '__all__'
+        fields = ['titulo','descricao','departamento_id','patrimonio']
 
-    def clean_patrimonio(self):
-        key = self.cleaned_data['patrimonio']
+    def clean_patrimonio(self, *args, **kwargs):
+        key = self.cleaned_data.get('patrimonio')
 
         if models.Registro.objects.filter(patrimonio=key).exclude(status='Finalizado').exclude(status='Cancelado'):
-            raise ValidationError(_('Invalid date - renewal in past'))
-        return key
+            raise forms.ValidationError('Já existe um chamado para esse patrimonio!')
+        else:
+            return key

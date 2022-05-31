@@ -16,5 +16,6 @@ urlpatterns = [
     path('registro/',views.CriarRegistro.as_view(),name='formRegistro'),
     path('404/',views.erro_404,name='erro_404'),
     #path('registro/',views.criarChamado,name='formRegistro')
-    path('chamados/',views.meus_chamados,name='meus_chamados')
+    path('chamados/',views.meus_chamados,name='meus_chamados'),
+    path('teste/',views.criarRegistro,name='teste')
     ]
