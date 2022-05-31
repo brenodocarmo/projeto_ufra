@@ -19,8 +19,8 @@ LOGIN_URL = 'account_login'
 # Configaraçoes de e-mail SMTP
 def SendSMTPEmail(destinatario,assunto,mensagem):
     # Login e senha
-    EMAIL_ADRESS =  'scsti.suporte@gmail.com'
-    EMAIL_PASSWORD = 'scstifdsa4321'
+    EMAIL_ADRESS =  '@gmail.com'
+    EMAIL_PASSWORD = ''
     EMAIL_SMTP_SERVER = 'smtp.gmail.com'
     EMAIL_SMTP_PORT = 465
 
