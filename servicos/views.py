@@ -105,6 +105,17 @@ def meus_chamados(request):
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
     registros = Registro.objects.filter(user_id=request.user.id)
+
+    # Filtro
+    STATUS_REGISTRO = Registro.STATUS_REGISTRO
+    status = []
+    for i in STATUS_REGISTRO:
+        status.append(i[0])
+    if request.method == 'POST':
+        for i in status:
+            if not request.POST.get(i) == 'True':
+                registros = registros.exclude(status=i)
+    
     # Paginação 
     page = request.GET.get('page', 1)
     paginator = Paginator(registros, 10)
@@ -186,6 +197,7 @@ def report(request):
     if not request.user.is_authenticated:
         return redirect(reverse_lazy('account_login'))
     
+    # Filtro
     registros = []
     STATUS_REGISTRO = Registro.STATUS_REGISTRO
     
@@ -205,9 +217,21 @@ def dashboard(request):
     
     # Verificação do Tipo de Usuario
     if request.user.is_superuser:
-        registros = Registro.objects.all().exclude(status='Finalizado').exclude(status='Cancelado')
+        registros = Registro.objects.all()
     else:
-        registros = Registro.objects.filter(user_id=request.user.id).exclude(status='Finalizado').exclude(status='Cancelado')
+        registros = Registro.objects.filter(user_id=request.user.id)
+    
+    STATUS_REGISTRO = Registro.STATUS_REGISTRO
+    status = []
+    for i in STATUS_REGISTRO:
+        status.append(i[0])
+
+    
+    if request.method == 'POST':
+        for i in status:
+            if not request.POST.get(i) == 'True':
+                registros = registros.exclude(status=i)
+        
 
     # Paginação 
     page = request.GET.get('page', 1)
@@ -220,9 +244,12 @@ def dashboard(request):
         registros = paginator.page(paginator.num_pages)
     # Fim da Paginação
     context = {
-        'registros': registros,'table_title':'Fila de Demanda'
+        'registros': registros,'table_title':'Fila de Demanda', 'status': status
     }
+
     return render(request,'dashboard.html', context=context)
+
+
 
 
 # Fim views

@@ -11,6 +11,32 @@
     <div>
       <h2 class="fw-bold" style="color: rgb(19, 20, 19);">{{table_title}}</h2>
     </div>
+    <!-- Filtro -->
+    <div class="dropdown show">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filtro
+      </a>
+      
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <form method="POST" action="">
+          {% csrf_token %}
+          {% for s in status %} 
+          <div class="dropdown-item">
+            <input type="checkbox" id="{{s}}" name="{{s}}" value="True">
+            <label for="{{s}}">{{s}}</label>
+          </div>
+          {% endfor %}
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" type="submit"><strong>Filtar Selecionados</strong></button>
+        </form>
+        <div class="dropdown-divider"></div>
+        <form action="" method="get">
+          {% csrf_token %}
+        <button type="submit" class="dropdown-item"><strong>Todos</strong></button>
+        </form>
+        </div>
+      </div>
+    <!-- Fim do Filtro -->
     <div>
       <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" href="{% url 'formRegistro' %}" style="background-color: rgb(28, 52, 231);">Novo Chamado</a>
     </div>
