@@ -72,65 +72,146 @@
 
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-      <a class="navbar-brand" href="{% url 'dashboard' %}">{% block titulo_nav %}Controle de Serviço{% endblock %}</a>
-      <div class="menu-drop">
-        <button type="button" name="drop">Cadastro</button>
-        <div class="drop-content">
-          <a class="navbar-brand" href="{% url 'formDepartamento' %}">Departamento</a>
-          <a class="navbar-brand" href="{% url 'formUnidade' %}">Unidade</a>
-        </div>
-      </div>
-      <a class="navbar-brand" href="{% url 'report' %}"> Atendimentos </a>
-      <a class="navbar-brand" href="{% url 'meus_chamados' %}">Meus Chamados</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      {% block sair %}
-      <div class="justify-content-end navbar-collapse collapse" id="navbarNav">
-        {% if user.is_authenticated %}
-          {% if user.is_superuser %}
-            <a href="#" class="navbar-brand" > Administrador:</a>
-          {% else %}
-          <a href="#" class="navbar-brand" > Colaborador:</a>
-          {% endif %}
-          <img src="{% static 'icons/user-color-2.png' %}" alt="" width="25" height="25">
-            <div class="menu-drop">
-            <button type="button" name="drop">{% user_display user %}</button>
+
+  <!--
+    
+    
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+        <div class="container">
+          <a class="navbar-brand" "></a>
+          <div class="menu-drop">
+            <button type="button" name="drop">Cadastro</button>
             <div class="drop-content">
-              <a href="{% url 'account_change_password' %}">Senha</a>
-              <a href="{% url 'account_email' %}">E-mail</a>
+              
             </div>
           </div>
-      <ul class="navbar-nav">
-        <a class="btn btn-danger" href="{% url 'account_logout' %}" style="background-color: rgb(240, 7, 7);">Sair</a>
-      </ul>
-        {% else %}
-        <div class="row mx-md-n15">
-          <div class="col py-15 px-md-10">
-            <ul class="navbar-nav">
-              <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" style="background-color: rgb(28, 52, 231);" href="{% url 'account_login' %}" >Entrar</a>
-            </ul>
-
-          </div>
-        </div>
-        <div class="row mx-md-n10">
-          <div class="col py-15 px-md-5">
-            <ul class="navbar-nav">
-              <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" style="background-color: rgb(28, 52, 231);" href="{% url 'account_signup' %}" >Registre-se</a>
-            </ul>
-          </div>
-        </div>
-        {% endif %}
-      </div>
-      {% endblock%}
-    </div>
+          <a class="navbar-brand" href="{% url 'report' %}"> Atendimentos </a>
+          <a class="navbar-brand" ">Meus Chamados</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          {% block sair %}
+          <div class="justify-content-end navbar-collapse collapse" id="navbarNav">
+            {% if user.is_authenticated %}
+              {% if user.is_superuser %}
+                <a href="#" class="navbar-brand" > Administrador:</a>
+              {% else %}
+              <a href="#" class="navbar-brand" > Colaborador:</a>
+              {% endif %}
+              
+                <div class="menu-drop">
+                <button type="button" name="drop">{% user_display user %}</button>
+                <div class="drop-content">
+                  <a href="{% url 'account_change_password' %}">Senha</a>
+                  <a href="{% url 'account_email' %}">E-mail</a>
+                </div>
+              </div>
+          <ul class="navbar-nav">
+            <a class="btn btn-danger" href="{% url 'account_logout' %}" style="background-color: rgb(240, 7, 7);">Sair</a>
+          </ul>
+            {% else %}
+            <div class="row mx-md-n15">
+              <div class="col py-15 px-md-10">
+                <ul class="navbar-nav">
+                  <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" style="background-color: rgb(28, 52, 231);" href="{% url 'account_login' %}" >Entrar</a>
+                </ul>
     
-  </nav>
+              </div>
+            </div>
+            <div class="row mx-md-n10">
+              <div class="col py-15 px-md-5">
+                <ul class="navbar-nav">
+                  <a class="nav-link btn btn-space text-white px-2 me-2 fw-bold" style="background-color: rgb(28, 52, 231);" href="{% url 'account_signup' %}" >Registre-se</a>
+                </ul>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% endblock%}
+        </div>
+        
+      </nav>
+  -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
 
+      <a class="navbar-brand" href="{% url 'dashboard' %}">{% block titulo_nav %}Controle de Serviço{% endblock %}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'report' %}">Atendimentos <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'meus_chamados' %}">Meus Chamados <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Cadastro
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'formDepartamento' %}">Departamento</a>
+              <a class="dropdown-item" href="{% url 'formUnidade' %}">Unidade</a>
+              <!--
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              -->
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- Lado Direito navegação-->
+     
+        <ul class="navbar-nav mr-auto">
+          {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">Administrador<span class="sr-only">(current)</span></a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">Colaborador<span class="sr-only">(current)</span></a>
+              </li>
+            {% endif %}
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{% static 'icons/user-color-2.png' %}" alt="" width="25" height="25">{% user_display user %}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'account_change_password' %}">Senha</a>
+                <a class="dropdown-item" href="{% url 'account_email' %}">E-mail</a>
+                <a class="dropdown-item" style="color: rgb(231, 28, 28);" href="{% url 'account_logout' %}" >Sair</a>
+                <!--
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                -->
+              </div>
+            </li>
+            {% else %}
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{% static 'icons/user-color-2.png' %}" alt="" width="25" height="25"> Conta
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'account_login' %}">Entar</a>
+                <a class="dropdown-item" href="{% url 'account_signup' %}">Registre-se</a>
+                <!--
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                -->
+              </div>
+            </li>
+            
+            {% endif %}
+        </ul>
+      
+    </div>
+  </nav>
   <!-- Page Content -->
   <div class="container">
     <div class="row">

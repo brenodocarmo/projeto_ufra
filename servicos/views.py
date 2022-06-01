@@ -280,3 +280,9 @@ def erro_404(request):
 
     print('---------------------------------')
     return render(request,'404.html')
+
+
+# Create your views here.
+def home(request):
+    languages = Registro.objects.all()
+    return render(request,'searc.html',{"languages":languages})

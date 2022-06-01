@@ -17,5 +17,6 @@ urlpatterns = [
     path('404/',views.erro_404,name='erro_404'),
     #path('registro/',views.criarChamado,name='formRegistro')
     path('chamados/',views.meus_chamados,name='meus_chamados'),
-    path('registro/',views.criarRegistro,name='formRegistro')
+    path('registro/',views.criarRegistro,name='formRegistro'),
+    path('teste/',views.home,name='home')
     ]
