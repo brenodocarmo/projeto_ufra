@@ -275,8 +275,7 @@ def dashboard(request):
 
 
 def erro_404(request):
-    print('--------------------------------')
-    #h = list(User.objects.filter(id=1).values())[0]['username']
-
-    print('---------------------------------')
     return render(request,'404.html')
+
+def help(request):
+    return render(request,'help.html')

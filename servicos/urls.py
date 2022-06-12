@@ -18,4 +18,5 @@ urlpatterns = [
     #path('registro/',views.criarChamado,name='formRegistro')
     path('chamados/',views.meus_chamados,name='meus_chamados'),
     path('registro/',views.criarRegistro,name='formRegistro'),
+    path('help/',views.help,name='help'),
     ]

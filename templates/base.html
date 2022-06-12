@@ -58,7 +58,7 @@
   </style>
 
 
-  <title>{% block titulo %}Controle de Serviço{% endblock %}</title>
+  <title>{% block titulo %} Inicio {% endblock %}</title>
 
   <!-- Bootstrap core CSS -->
 
@@ -163,6 +163,9 @@
               -->
             </div>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'help' %}">Ajuda<span class="sr-only">(current)</span></a>
+          </li>
         </ul>
       </div>
       <!-- Lado Direito navegação-->
@@ -185,7 +188,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{% url 'account_change_password' %}">Senha</a>
                 <a class="dropdown-item" href="{% url 'account_email' %}">E-mail</a>
-                <a class="dropdown-item" style="color: rgb(231, 28, 28);" href="{% url 'account_logout' %}" >Sair</a>
+                <a class="dropdown-item" style="color: red;" href="{% url 'account_logout' %}" >Sair</a>
                 <!--
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Something else here</a>
